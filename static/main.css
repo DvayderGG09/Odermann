@@ -1,0 +1,252 @@
+/* Общие стили для тела документа */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Стили для навигационного меню */
+nav {
+    padding: 10px 20px; /* Отступы внутри меню */
+    position: fixed; /* Фиксированное положение */
+    top: 0; /* Положение вверху */
+    width: 100%; /* Ширина на всю ширину экрана */
+    z-index: 1000; /* Убедитесь, что меню находится поверх других элементов */
+    background: rgba(50, 50, 50, 0.8);
+    display: flex; /* Flexbox для размещения логотипа и меню */
+    align-items: center; /* Центрирование по вертикали */
+}
+
+/* Логотип */
+.logo_left {
+    width: 65px; /* Ширина логотипа */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    margin-left: 75px;
+    margin-right: 52px; /* Отступ между логотипом и меню */
+}
+
+/* Логотип справа */
+.logo_right {
+    width: 65px; /* Ширина логотипа */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    margin-left: 35px; /* Отступ между меню и логотипом справа */
+}
+
+.logo_right_2 {
+    width: 62px; /* Ширина логотипа */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    margin-left: 35px; /* Отступ между меню и логотипом справа */
+}
+
+/* Стили для списка навигации */
+nav ul {
+    display: flex; /* Flexbox для горизонтального выравнивания */
+    list-style: none; /* Убираем маркеры списка */
+    margin: 0; /* Убираем отступы */
+    padding: 0; /* Убираем внутренние отступы */
+}
+
+/* Стили для элементов списка */
+nav li {
+    margin-right: 30px; /* Отступ между элементами списка */
+}
+
+/* Стили для ссылок */
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px; /* Измените отступы для создания кнопок */
+    font-size: 20px;
+    width: 122px; /* Фиксированная ширина */
+    height: 25px; /* Фиксированная высота */
+    display: inline-block; /* Чтобы элементы выглядели как кнопки */
+    border-radius: 25px; /* Округление углов */
+    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход фона и цвета текста */
+}
+
+/* Стили для изображений кнопок */
+nav a img {
+    margin-top: 1px;
+    width: 20px; /* Ширина изображения */
+    height: 20px; /* Высота изображения */
+    margin-right: 14px; /* Отступ между изображением и текстом */
+}
+
+.button_login {
+    margin-left: 400px;
+    width: 95px;
+}
+
+.button_register {
+    margin-left: 30px;
+    width: 225px;
+}
+
+.button_profile {
+    margin-left: 550px;
+    width: 200px;
+}
+
+/* Эффект при наведении на кнопки */
+nav a:hover {
+    background-color: rgba(76, 175, 80, 0.8); /* Цвет фона при наведении */
+    color: black; /* Цвет текста при наведении */
+}
+
+/* Стили для контента страницы */
+.content {
+    margin-top: 1px; /* Отступ сверху, чтобы контент не прилипал к меню */
+}
+
+.pizza-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    row-gap: 80px;
+}
+
+.pizza-post {
+    perspective: 1000px;
+    position: relative;
+    background: #3a3a3a;
+    border-radius: 20px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-right: 12px;
+    width: 315px;
+    height: 315px;
+}
+
+.pizza-post:nth-child(-n+4) {
+    margin-top: 184px; /* Отступ сверху для постов в первом ряду */
+}
+
+.pizza-image {
+    width: 100%;
+    height: auto;
+    position: relative; /* Относительное позиционирование для изображения */
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.pizza-image img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 100%; /* Настройка ширины изображения */
+    height: auto;
+    display: block;
+    object-fit: cover; /* Соотношение сторон изображения */
+}
+
+.pizza-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #808080; /* Непрозрачный серый фон */
+    transform: rotateY(180deg); /* Скрываем детали за изображением */
+    padding: 10px;
+    opacity: 0; /* Скрыто по умолчанию */
+    transition: opacity 0.3s; /* Плавный переход для видимости */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.pizza-image.flipped {
+    transform: rotateY(180deg); /* Переворачиваем изображение на 180 градусов */
+}
+
+.pizza-image.flipped .pizza-details {
+    opacity: 1; /* Показываем детали при перевороте */
+}
+
+.pizza-title,
+.pizza-price {
+    position: absolute;
+    z-index: 1; /* Убедитесь, что они выше изображения */
+    transition: opacity 0.4s; /* Плавный переход для видимости */
+}
+
+.pizza-image.flipped .pizza-title,
+.pizza-image.flipped .pizza-price {
+    opacity: 0; /* Скрываем название и цену при перевороте */
+}
+
+.pizza-grade {
+    visibility: hidden;
+}
+.pizza-name {
+    font-size: 24px;
+    padding-left: 35px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.pizza-description-name {
+    padding-top: 8px;
+    font-size: 20px;
+    padding-left: 1px;
+}
+
+.pizza-description {
+    padding-top: 5px;
+    font-size: 15px;
+    padding-left: 1px;
+}
+
+.pizza-sostav-name {
+    padding-top: 8px;
+    font-size: 20px;
+    padding-left: 1px;
+}
+
+.pizza-sostav {
+    padding-top: 5px;
+    font-size: 15px;
+    padding-left: 1px;
+}
+
+.pizza-title {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #ff9696;
+    font-size: 24px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.pizza-price {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: #ffebeb;
+    font-size: 24px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgba(173, 10, 10, 0.5);
+}
+
+.toggle-button {
+    width: 100%; /* Настройка ширины кнопки */
+    padding: 13px; /* Настройка отступов кнопки */
+    color: white; /* Цвет текста кнопки */
+    background-color: #ff6f61; /* Цвет фона кнопки */
+    cursor: pointer;
+    font-size: 19px; /* Настройка размера шрифта */
+    text-align: center;
+    transition: background-color 0.3s; /* Плавный переход цвета */
+    margin-top: -3px; /* Убираем отступы вокруг кнопки */
+    display: block; /* Устанавливаем блочный элемент */
+    border-radius: 0 0 8px 8px; /* Закругление углов нижней части кнопки */
+}
+
+.toggle-button:hover {
+    background-color: #ff4c39; /* Цвет кнопки при наведении */
+}
+
+.menu {
+    padding: 15px; /* Настройка отступов меню */
+    display: none; /* Скрыть меню по умолчанию */
+}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Регистрация • 🍕 Пиццерия 🍕
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Регистрация</h2>
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+    <form id="registerForm" method="post" action="/auth/register" novalidate>
+        <input type="text" name="nickname" id="nicknameInput" placeholder="Введите никнейм">
+        <input type="email" name="email" id="emailInput" placeholder="Введите email">
+        <input type="password" name="password" id="passwordInput" placeholder="Введите пароль">
+        <input type="password" name="password_2" id="password_2Input" placeholder="Повторите свой пароль">
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</div>
+<div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="modalMessage"></p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='javascript/script.js') }}"></script> <!-- Подключаем JS -->
+
+{% endblock %}
