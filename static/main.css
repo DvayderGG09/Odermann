@@ -228,25 +228,70 @@ nav a:hover {
     background-color: rgba(173, 10, 10, 0.5);
 }
 
-.toggle-button {
-    width: 100%; /* Настройка ширины кнопки */
-    padding: 13px; /* Настройка отступов кнопки */
-    color: white; /* Цвет текста кнопки */
-    background-color: #ff6f61; /* Цвет фона кнопки */
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Распределение кнопок по краям */
+}
+
+.toggle-button, .buy-button {
+    width: 50%; /* Настройка ширины кнопок */
+    padding: 13px; /* Настройка отступов кнопок */
+    color: white; /* Цвет текста кнопок */
+    background-color: #ff6f61; /* Цвет фона кнопок */
     cursor: pointer;
     font-size: 19px; /* Настройка размера шрифта */
     text-align: center;
     transition: background-color 0.3s; /* Плавный переход цвета */
-    margin-top: -3px; /* Убираем отступы вокруг кнопки */
+    margin-top: -3px; /* Убираем отступы вокруг кнопок */
     display: block; /* Устанавливаем блочный элемент */
-    border-radius: 0 0 8px 8px; /* Закругление углов нижней части кнопки */
 }
 
-.toggle-button:hover {
+.toggle-button {
+    border-radius: 0 0 0px 8px; /* Закругление углов нижней части кнопки слева */
+}
+
+.buy-button {
+    border-radius: 0 0 8px 0px; /* Закругление углов нижней части кнопки справа */
+}
+
+.toggle-button:hover, .buy-button:hover {
     background-color: #ff4c39; /* Цвет кнопки при наведении */
 }
 
 .menu {
     padding: 15px; /* Настройка отступов меню */
     display: none; /* Скрыть меню по умолчанию */
+}
+
+.cart-button {
+    background: rgba(255, 255, 255, 0.8); /* Убираем фон кнопки */
+    border: none; /* Убираем границы кнопки */
+    padding: 10px; /* Убираем внутренние отступы */
+    margin: 0px;
+    margin-left: 32px; /* Убираем внешние отступы */
+    cursor: pointer; /* Курсор в виде руки */
+    display: inline-flex; /* Отображаем как inline-flex контейнер */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    box-sizing: border-box; /* Учитываем padding и border в размерах */
+    width: auto; /* Ширина по содержимому */
+    height: auto; /* Высота по содержимому */
+    border-radius: 30px;
+}
+
+/* Убираем фон при наведении */
+.cart-button:hover {
+    background: rgba(76, 175, 80, 0.8);
+}
+
+/* Стили для изображения корзины */
+.cart-button img {
+    width: 28px; /* Устанавливаем ширину изображения */
+    height: 28px; /* Устанавливаем высоту изображения */
+    display: block; /* Убираем лишнее пространство вокруг изображения */
+}
+
+/* Убираем стиль кнопки при фокусе */
+.cart-button:focus {
+    outline: none; /* Убираем обводку при фокусе */
 }

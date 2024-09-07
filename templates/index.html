@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-😀 Онлайн магазин 😀 | 🍕 Пиццерия 🍕
+😀 Онлайн Магазин 😀 | 🍕 Пиццерия 🍕
 {% endblock %}
 
 
@@ -20,16 +20,17 @@
     </ul>
     <img src="{{ url_for('static', filename='images/icon_2.png') }}" alt="Логотип" class="logo_right">
     {% if login %}
-        <a href="" class="button_profile"><img src="{{ url_for('static', filename='images/icon_6.png') }}" alt="image_1">Личный кабинет</a>
+        <a href="auth/profile" class="button_profile"><img src="{{ url_for('static', filename='images/icon_6.png') }}" alt="image_1">Личный кабинет</a>
     {% else %}
-        <a href="" class="button_login"><img src="{{ url_for('static', filename='images/icon_7.png') }}" alt="image_1">Войти</a>
+        <a href="auth/login" class="button_login"><img src="{{ url_for('static', filename='images/icon_7.png') }}" alt="image_1">Войти</a>
         <a href="auth/register" class="button_register"><img src="{{ url_for('static', filename='images/icon_4.png') }}" alt="image_1">Зарегистрироваться</a>
     {% endif %}
     <img src="{{ url_for('static', filename='images/icon_5.png') }}" alt="Логотип" class="logo_right_2">
+    <button class="cart-button"><img src="{{ url_for('static', filename='images/cart_icon.png') }}" alt="Корзина"></button>
 </nav>
 
 <div class="pizza-container">
-    <div class="pizza-post">
+    <div class="pizza-post" data-id="1">
         <div class="pizza-image">
             <img src="{{ url_for('static', filename='images/icon_8.png') }}" alt="Pizza">
             <div class="pizza-details">
@@ -43,10 +44,13 @@
             <div class="pizza-title">Пицца Маргарита</div>
             <div class="pizza-price">199 ₽</div>
         </div>
-        <button class="toggle-button">Подробнее</button>
+        <div class="button-container">
+            <button class="toggle-button">Подробнее</button>
+            <button class="buy-button">Заказать</button>
+        </div>
     </div>
 
-    <div class="pizza-post">
+    <div class="pizza-post" data-id="2">
         <div class="pizza-image">
             <img src="{{ url_for('static', filename='images/icon_8.png') }}" alt="Pizza">
             <div class="pizza-details">
@@ -60,10 +64,13 @@
             <div class="pizza-title">Пицца Пепперони</div>
             <div class="pizza-price">249 ₽</div>
         </div>
-        <button class="toggle-button">Подробнее</button>
+        <div class="button-container">
+            <button class="toggle-button">Подробнее</button>
+            <button class="buy-button">Заказать</button>
+        </div>
     </div>
 
-    <div class="pizza-post">
+    <div class="pizza-post" data-id="3">
         <div class="pizza-image">
             <img src="{{ url_for('static', filename='images/icon_8.png') }}" alt="Pizza">
             <div class="pizza-details">
@@ -77,10 +84,13 @@
             <div class="pizza-title">Пицца Гавайская</div>
             <div class="pizza-price">299 ₽</div>
         </div>
-        <button class="toggle-button">Подробнее</button>
+        <div class="button-container">
+            <button class="toggle-button">Подробнее</button>
+            <button class="buy-button">Заказать</button>
+        </div>
     </div>
 
-    <div class="pizza-post">
+    <div class="pizza-post" data-id="4">
         <div class="pizza-image">
             <img src="{{ url_for('static', filename='images/icon_8.png') }}" alt="Pizza">
             <div class="pizza-details">
@@ -94,10 +104,13 @@
             <div class="pizza-title">Пицца Четыре сыра</div>
             <div class="pizza-price">349 ₽</div>
         </div>
-        <button class="toggle-button">Подробнее</button>
+        <div class="button-container">
+            <button class="toggle-button">Подробнее</button>
+            <button class="buy-button">Заказать</button>
+        </div>
     </div>
 
-    <div class="pizza-post">
+    <div class="pizza-post" data-id="5">
         <div class="pizza-image">
             <img src="{{ url_for('static', filename='images/icon_8.png') }}" alt="Pizza">
             <div class="pizza-details">
@@ -111,11 +124,35 @@
             <div class="pizza-title">Пицца BBQ Chicken</div>
             <div class="pizza-price">399 ₽</div>
         </div>
-        <button class="toggle-button">Подробнее</button>
+        <div class="button-container">
+            <button class="toggle-button">Подробнее</button>
+            <button class="buy-button">Заказать</button>
+        </div>
     </div>
 </div>
 
 
+<div id="pizzaModal" class="modal-pizza">
+    <div class="modal-pizza-content">
+        <span class="close-modal">&times;</span>
+        <h2 class="modal-pizza-title">Название пиццы</h2>
+        <p class="modal-pizza-price">Цена: 0 ₽</p>
+        <p>Ваш заказ добавлен в корзину!</p>
+        <button class="modal-pizza-button">Перейти к оплате</button>
+    </div>
+</div>
+
+
+<!-- Модальное окно корзины-->
+<div id="cartModal" class="cart-pizza">
+    <div class="modal-cart-content">
+        <span class="close-modal-cart">&times;</span>
+        <h2 class="modal-cart-title">Корзина</h2>
+        <div id="cartItems"></div> <!-- Здесь будут отображаться пиццы -->
+    </div>
+</div>
+
+<script>const imageBasePath = "{{ url_for('static', filename='images/') }}";</script>
 <script src="{{ url_for('static', filename='javascript/menu.js') }}"></script>
 {% endblock %}
 

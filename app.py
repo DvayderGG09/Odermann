@@ -13,8 +13,7 @@ def create():
     c.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER,
-            login_yes BOOLEAN,
-            nickname TEXT,
+            login TEXT,
             password TEXT,
             email TEXT
         )
@@ -24,28 +23,27 @@ def create():
 
 create()
 
+
 @app.route('/', methods=['GET'])
 def index():
-    login_to_tipy_site = request.cookies.get('LoginToTipySite')
-    id_to_tipy_site = request.cookies.get('id_ToTipySite')
-    login_to_tipy_site = login_to_tipy_site == 'True'
-    if login_to_tipy_site and id_to_tipy_site:
-        int(id_to_tipy_site)
+    login = request.cookies.get('Login')
+    password = request.cookies.get('Password')
+    if login is None or password is None:
+        login_html = False
+    else:
         db = sqlite3.connect('database.db')
         c = db.cursor()
-        c.execute("SELECT login_yes FROM users WHERE id = ?", (id_to_tipy_site,))
+        c.execute("SELECT login, password FROM users WHERE login = ?", (login,))
         user = c.fetchone()
+        if user is None:
+            login_html = False
+            return render_template("index.html", login=login_html)
         db.commit()
         db.close()
-        if user:
-            if user[0] == login_to_tipy_site:
-                login_html = True
-            else:
-                login_html = False
+        if password == str(user[1]):
+            login_html = True
         else:
             login_html = False
-    else:
-        login_html = False
 
     return render_template("index.html", login=login_html)
 
@@ -73,18 +71,32 @@ def register():
                 next_user_id = 1
             else:
                 next_user_id = last_user_id + 1
-            login_yes = True
             expires = datetime.datetime.now() + datetime.timedelta(days=365)  # 1 год
-            print(next_user_id, login_yes)
             resp = make_response(redirect('/'))
-            resp.set_cookie('id_ToTipySite', str(next_user_id), expires=expires)
-            resp.set_cookie('LoginToTipySite', str(login_yes), expires=expires)
-            c.execute("INSERT INTO users (id, login_yes, nickname, password, email) VALUES (?, ?, ?, ?, ?)", (next_user_id, login_yes, nickname, hashed_password, email))
+            resp.set_cookie('Password', str(hashed_password), expires=expires)
+            resp.set_cookie('Login', str(nickname), expires=expires)
+            c.execute("INSERT INTO users (id, login, password, email) VALUES (?, ?, ?, ?)", (next_user_id, nickname, hashed_password, email))
             db.commit()
             db.close()
             return resp
 
     return render_template("register.html", error=error)
+
+@app.route('/auth/profile')
+def profile():
+    return render_template("profile.html")
+
+@app.route('/auth/login')
+def login():
+    error = None
+    if request.method == 'POST':
+        nickname = request.form.get('login')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        if not nickname or not password or not email or "@" not in email:
+            error = "Некорректная ошибка"
+
+    return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=False)
